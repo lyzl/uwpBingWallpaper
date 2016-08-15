@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="BingWallpaper.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BingWallpaper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model ="using:BingWallpaper.Model"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+    <Grid
+        Padding="10,20,0,0">
+        <ListView
+            x:Name="ToggleSwitchesListView"
+            Grid.Column="1">
+            <ToggleSwitch
+                x:Name="DaliyUpdateSwitch"
+                Header="{x:Bind settingPageItems[0].descrption}"
+                IsOn="{x:Bind settingPageItems[0].settingValue, Mode=TwoWay}"
+                Toggled="DaliyUpdateSwitch_Toggled"/>
+            <ToggleSwitch
+                x:Name="UpdateWallpaperSwitch"
+                Header="{x:Bind settingPageItems[1].descrption}"
+                IsOn="{x:Bind settingPageItems[1].settingValue, Mode=TwoWay}"
+                Visibility="{x:Bind DaliyUpdateSwitch.IsOn, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+            <ToggleSwitch
+                x:Name="UpdateLockScreenSwitch"
+                Header="{x:Bind settingPageItems[2].descrption}"
+                IsOn="{x:Bind settingPageItems[2].settingValue, Mode=TwoWay}"
+                Visibility="{x:Bind DaliyUpdateSwitch.IsOn, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+            <ToggleSwitch
+                x:Name="ToastSwitch"
+                Header="{x:Bind settingPageItems[3].descrption}"
+                IsOn="{x:Bind settingPageItems[3].settingValue, Mode=TwoWay}"
+                Visibility="{x:Bind DaliyUpdateSwitch.IsOn, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+        </ListView>
+    </Grid>
+</Page>

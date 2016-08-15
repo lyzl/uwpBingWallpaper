@@ -1,0 +1,108 @@
+﻿<Page
+    x:Class="BingWallpaper.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BingWallpaper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:BingWallpaper.Model"
+    mc:Ignorable="d">
+
+    <SplitView
+        x:Name="NavBar"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        OpenPaneLength="150"
+        CompactPaneLength="42"
+        DisplayMode="CompactOverlay">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="PaneClose">
+                    <VisualState.Setters>
+                        <Setter Target="NavBarDivider.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="PaneOpen">
+                    <VisualState.Setters>
+                        <Setter Target="NavBarDivider.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <SplitView.Pane >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ToggleButton
+                    x:Name="HamburgerButton"
+                    Checked="HamburgerButton_Checked"
+                    Unchecked="HamburgerButton_Unchecked"
+                    FontSize="18" 
+                    FontFamily="Segoe MDL2 Assets"
+                    Background="Transparent"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    BorderThickness="0"
+                    MinHeight="40"
+                    MinWidth="40"
+                    Content="&#xE700;"
+                    Margin="1,5,0,5"/>
+                <ListView 
+                    x:Name="NavBarItems"
+                    Grid.Row="1"
+                    IsItemClickEnabled="True"
+                    ItemClick="NavBarItems_ItemClick"
+                    ItemsSource="{x:Bind sideBarMenuItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:NavBarMenuItem">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Style="{StaticResource NavBarButtonStyle}"
+                                    Text="{x:Bind icon}"/>
+                                <TextBlock
+                                    FontSize="18"
+                                    Text="{x:Bind descrption}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Rectangle
+                        x:Name="NavBarDivider"
+                        Grid.Row="2"
+                        Height="1"
+                        Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                        Margin="15,0,15,5"/>
+                <StackPanel
+                        Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,5,5">
+                    <Button
+                            x:Name="FeedbackButton"
+                            Content="&#xE76E;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="18"
+                            Margin="0,0,0,0"
+                            Background="Transparent"/>
+                    <Button 
+                            x:Name="SettingButton"
+                            Click="SettingButton_Click"
+                            Content="&#xE713;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="18"
+                            Margin="0,0,5,0"
+                            Background="Transparent"/>
+                </StackPanel>
+            </Grid>
+
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Frame
+                x:Name="PicturesPage"
+                Padding="5"/>
+        </SplitView.Content>
+    </SplitView>
+</Page>
