@@ -111,5 +111,23 @@ namespace BingWallpaper
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.ToastNotification)
+            {
+                var toastArgs = args as ToastNotificationActivatedEventArgs;
+                var argument = toastArgs.Argument;
+                Frame rootFrame = Window.Current.Content as Frame;
+                if (rootFrame == null)
+                {
+                    rootFrame = new Frame();
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+                    Window.Current.Content = rootFrame;
+                    rootFrame.Navigate(typeof(MainPage));
+                    Window.Current.Activate();
+                }
+            }
+        }
     }
 }

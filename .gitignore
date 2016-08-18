@@ -1,0 +1,7 @@
+AppPackages/
+obj/
+bin/
+BundleArtifacts/
+BingWallpaper/BingWallpaper_StoreKey.pfx
+BingWallpaper/BingWallpaper.csproj.user
+BingWallpaper/Package.StoreAssociation.xml
