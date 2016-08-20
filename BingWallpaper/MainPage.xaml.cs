@@ -47,6 +47,7 @@ namespace BingWallpaper
             var menuItem = (NavBarMenuItem)e.ClickedItem;
             PicturesPage.Navigate(menuItem.destPage);
             NavBar.IsPaneOpen = false;
+            HamburgerButton.IsChecked = false;
         }
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
