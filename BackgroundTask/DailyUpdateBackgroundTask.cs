@@ -20,13 +20,14 @@ namespace BackgroundTask
 {
     public sealed class DailyUpdateBackgroundTask:IBackgroundTask
     {
+        const bool debug = true;
         BackgroundTaskDeferral defferal;
         WallPapers dailyWallpaper;
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             defferal = taskInstance.GetDeferral();
             dailyWallpaper = await WallpaperProxy.GetWallpaper(1, 1);
-            if (!checkAvaliableNewWallpaper())
+            if (!checkAvaliableNewWallpaper() &&(!debug))
             {
                 defferal.Complete();
                 return;

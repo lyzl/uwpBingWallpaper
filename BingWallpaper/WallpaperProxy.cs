@@ -27,15 +27,7 @@ namespace BingWallpaper
             var serializer = new DataContractJsonSerializer(typeof(WallPapers));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
             var data = (WallPapers)serializer.ReadObject(ms);
-
-            foreach (var item in data.images)
-            {
-                var path = string.Format("{0}\\{1}\\{2}.jpg", ApplicationData.Current.LocalFolder.Path, "wallpapers", item.fullstartdate);
-                if (File.Exists(path))
-                {
-                    item.url = path;
-                }
-            }
+            await SaveWallPaper(data.images);
             return data;
         }
         public static async Task<List<IStorageFile>> SaveWallPaper(List<Wallpaper> wallpapers)
@@ -43,8 +35,13 @@ namespace BingWallpaper
             List<IStorageFile> fileList = new List<IStorageFile>();
             foreach (var item in wallpapers)
             {
+                var path = string.Format("{0}\\{1}\\{2}.jpg", ApplicationData.Current.LocalFolder.Path, "wallpapers", item.fullstartdate);
+                if (File.Exists(path))
+                {
+                    continue;
+                }
                 List<Byte> allBytes = new List<byte>();
-                // 把壁纸的图片文件保存到当前的应用文件里面
+                // 把壁纸的图片文件保存到当前的应用文件夹里面
                 using (var response = await HttpWebRequest.Create(item.url).GetResponseAsync())
                 {
                     using (Stream responseStream = response.GetResponseStream())
@@ -70,6 +67,7 @@ namespace BingWallpaper
                     wallpapersFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("wallpapers");
                 }
                 IStorageFile saveFile = await wallpapersFolder.CreateFileAsync(item.fullstartdate + ".jpg", CreationCollisionOption.ReplaceExisting);
+                item.url = saveFile.Path;
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
                 fileList.Add(saveFile);
             }
