@@ -30,6 +30,13 @@ namespace BackgroundTask
             var serializer = new DataContractJsonSerializer(typeof(WallPapers));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
             var data = (WallPapers)serializer.ReadObject(ms);
+            foreach (var item in data.images)
+            {
+                if (!item.url.StartsWith(@"http://s.cn.bing.net"))
+                {
+                    item.url = @"http://www.bing.com/" + item.url;
+                }
+            }
             return data;
         }
         public static IAsyncOperation<IStorageFile> SaveWallPaper(Wallpaper wallpaper)
