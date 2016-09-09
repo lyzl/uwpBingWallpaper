@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:BingWallpaper.Model"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <ResourceDictionary Source="Styles/Styles.xaml"/>
+    </Page.Resources>
     <SplitView
         x:Name="NavBar"
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -48,7 +50,9 @@
                     MinHeight="40"
                     MinWidth="40"
                     Content="&#xE700;"
-                    Margin="1,5,0,5"/>
+                    Margin="1,5,0,0"
+                    Style="{StaticResource HumburgerButtonSytle}">
+                </ToggleButton>
                 <ListView 
                     x:Name="NavBarItems"
                     Grid.Row="1"
@@ -69,32 +73,33 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Rectangle
-                        x:Name="NavBarDivider"
-                        Grid.Row="2"
-                        Height="1"
-                        Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                        Margin="15,0,15,5"/>
+                    x:Name="NavBarDivider"
+                    Grid.Row="2"
+                    Height="1"
+                    Visibility="Collapsed"
+                    Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                    Margin="15,0,15,5"/>
                 <StackPanel
-                        Grid.Row="3"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Margin="0,0,5,5">
+                    Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,5,5">
                     <Button
-                            x:Name="FeedbackButton"
-                            Content="&#xE76E;"
-                            FontFamily="Segoe MDL2 Assets"
-                            FontSize="18"
-                            Margin="0,0,0,0"
-                            Background="Transparent"/>
+                        x:Name="FeedbackButton"
+                        Content="&#xE76E;"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="18"
+                        Margin="0,0,0,0"
+                        Background="Transparent"/>
                     <Button 
-                            x:Name="SettingButton"
-                            Click="SettingButton_Click"
-                            Content="&#xE713;"
-                            FontFamily="Segoe MDL2 Assets"
-                            FontSize="18"
-                            Margin="0,0,5,0"
-                            Background="Transparent"/>
+                        x:Name="SettingButton"
+                        Click="SettingButton_Click"
+                        Content="&#xE713;"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="18"
+                        Margin="0,0,5,0"
+                        Background="Transparent"/>
                 </StackPanel>
             </Grid>
 

@@ -33,11 +33,11 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton
+            <!--<AppBarButton
                 x:Name="StarButton"
                 Label="收藏"
                 Icon="Favorite"
-                Click="StarButton_Click"/>
+                Click="StarButton_Click"/>-->
             <CommandBar.Content>
                 <TextBlock 
                     Text="今日图片"
