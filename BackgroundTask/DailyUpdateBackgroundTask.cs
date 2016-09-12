@@ -15,6 +15,7 @@ using Windows.Storage;
 using Windows.System.UserProfile;
 using Windows.UI.Notifications;
 using BackgroundTask;
+using Windows.Networking.Connectivity;
 
 namespace BackgroundTask
 {
@@ -26,6 +27,25 @@ namespace BackgroundTask
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             defferal = taskInstance.GetDeferral();
+            bool internetConnected = false;
+            var internetConnectionProfile = NetworkInformation.GetConnectionProfiles();
+            //检查互联网连接
+            if (internetConnectionProfile.Count != 0)
+            {
+                foreach (var item in internetConnectionProfile)
+                {
+                    if (item.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+                    {
+                        internetConnected = true;
+                    }
+                }
+            }
+            if (!internetConnected)
+            {
+                BuildTask(15);
+                defferal.Complete();
+                return;
+            }
             dailyWallpaper = await WallpaperProxy.GetWallpaper(1, 1);
             if (!checkAvaliableNewWallpaper() &&(!debug))
             {
@@ -82,6 +102,24 @@ namespace BackgroundTask
         private bool checkAvaliableNewWallpaper()
         {
             bool rt;
+            
+            if (File.Exists(string.Format("{0}//wallpapersInfo//{1}.txt", ApplicationData.Current.LocalFolder.Path, dailyWallpaper.images[0].fullstartdate)))
+            {
+                //存在文件,代表没有新的壁纸
+                BuildTask(120);
+                rt = false;
+            }
+            else
+            {
+                //不存在文件,代表有新的壁纸
+                BuildTask(1200);
+                rt = true;
+            }
+            return rt;
+        }
+
+        private void BuildTask(uint minutes)
+        {
             var builder = new BackgroundTaskBuilder();
             builder.Name = "BingWallpaperDailyUpdate";
             builder.TaskEntryPoint = "BackgroundTask.DailyUpdateBackgroundTask";
@@ -92,20 +130,8 @@ namespace BackgroundTask
                     item.Value.Unregister(true);
                 }
             }
-            if (File.Exists(string.Format("{0}//wallpapersInfo//{1}.txt", ApplicationData.Current.LocalFolder.Path, dailyWallpaper.images[0].fullstartdate)))
-            {
-                //存在文件,代表没有新的壁纸
-                builder.SetTrigger(new MaintenanceTrigger(120, true));
-                rt = false;
-            }
-            else
-            {
-                //不存在文件,代表有新的壁纸
-                builder.SetTrigger(new MaintenanceTrigger(1200, true));
-                rt = true;
-            }
+            builder.SetTrigger(new MaintenanceTrigger(minutes, true));
             BackgroundTaskRegistration task = builder.Register();
-            return rt;
-        }
+        } 
     }
 }

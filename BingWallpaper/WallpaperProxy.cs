@@ -66,6 +66,7 @@ namespace BingWallpaper
                 var path = string.Format("{0}\\{1}\\{2}.jpg", ApplicationData.Current.LocalFolder.Path, "wallpapers", item.fullstartdate);
                 if (File.Exists(path))
                 {
+                    item.url = path;
                     continue;
                 }
                 List<Byte> allBytes = new List<byte>();
