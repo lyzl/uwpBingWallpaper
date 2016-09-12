@@ -51,6 +51,7 @@
             VerticalAlignment="Center">
             <Image 
                 x:Name="MainImage"
+                Source="{x:Bind wallPaper.images[0].url}"
                 Stretch="Uniform"/>
             <Grid 
                 Height="auto" 
@@ -62,6 +63,7 @@
                 <TextBlock
                     x:Name="CopyrightTextBlock"
                     Foreground="White"
+                    Text="{x:Bind wallPaper.images[0].copyright}"
                     Margin="2,0"/>
             </Grid>
         </RelativePanel>

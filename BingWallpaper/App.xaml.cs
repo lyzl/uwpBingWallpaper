@@ -1,6 +1,7 @@
 ﻿using BingWallpaper.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -9,6 +10,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -85,6 +87,9 @@ namespace BingWallpaper
                 var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
                 ApplicationData.Current.LocalSettings.Values["screenHeight"] = bounds.Height * scaleFactor;
                 ApplicationData.Current.LocalSettings.Values["screenWidth"] = bounds.Width * scaleFactor;
+                Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
+                var profile = NetworkInformation.GetConnectionProfiles();
+                var tem = profile[0];
             }
         }
 

@@ -10,16 +10,37 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 
 namespace BingWallpaper
 {
     public class WallpaperProxy
     {
+        
 
         public static async Task<WallPapers> GetWallpaper(int index, int n)
         {
+            bool internetConnected = false;
+            var internetConnectionProfile = NetworkInformation.GetConnectionProfiles();
+            if (internetConnectionProfile.Count != 0)
+            {
+                foreach (var item in internetConnectionProfile)
+                {
+                    if (item.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+                    {
+                        internetConnected = true;
+                    }
+                }
+            }
+            if (!internetConnected)
+            {
+                await new MessageDialog("获取失败，请检查网络连接").ShowAsync();
+                return null;
+            }
+
             var http = new HttpClient();
             var url = String.Format("http://www.bing.com/HPImageArchive.aspx?format=js&idx={0}&n={1}&mkt=en-US", index, n);
             var response = await http.GetAsync(url);

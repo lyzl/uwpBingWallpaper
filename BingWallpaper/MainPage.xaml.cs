@@ -28,9 +28,7 @@ namespace BingWallpaper
         public MainPage()
         {
             this.InitializeComponent();
-            this.PicturesPage.Navigate(typeof(SinglePictureView));
             sideBarMenuItems = NavBarMenuItem.GetNavBarMenuItems();
-            Debug.WriteLine(Windows.Storage.ApplicationData.Current.LocalFolder.Path);
         }
 
         //private void HamburgerButton_Click(object sender, RoutedEventArgs e)

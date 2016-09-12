@@ -35,8 +35,7 @@ namespace BingWallpaper
         async void getTodayPicture()
         {
             wallPaper = await WallpaperProxy.GetWallpaper(1, 1);
-            MainImage.Source = new BitmapImage(new Uri(wallPaper.images[0].url));
-            CopyrightTextBlock.Text = wallPaper.images[0].copyright;
+            Bindings.Update();
         }
 
         private async void SaveAsButton_Click(object sender, RoutedEventArgs e)
