@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BingWallpaper"
+    xmlns:model="using:BingWallpaper.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -60,7 +61,7 @@
             Grid.Row="1"
             IsItemClickEnabled="True"
             ItemClick="MainGridView_ItemClick"
-            ItemsSource="{x:Bind wallPapersCollection}"
+            ItemsSource="{x:Bind WallpapersCollection}"
             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>
@@ -69,7 +70,7 @@
                 </TransitionCollection>
             </GridView.ItemContainerTransitions>
             <GridView.ItemTemplate >
-                <DataTemplate x:DataType="local:Wallpaper">
+                <DataTemplate x:DataType="model:Wallpaper">
                     <Image
                         Source="{x:Bind url}"
                         Width="320" 
@@ -89,14 +90,14 @@
                 Background="Transparent"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                ItemsSource="{x:Bind wallPapersCollection}">
+                ItemsSource="{x:Bind WallpapersCollection}">
                 <FlipView.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
                     </TransitionCollection>
                 </FlipView.Transitions>
                 <FlipView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Wallpaper">
+                    <DataTemplate x:DataType="model:Wallpaper">
                         <RelativePanel
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">

@@ -23,7 +23,7 @@ namespace BackgroundTask
     {
         const bool debug = false;
         BackgroundTaskDeferral defferal;
-        WallPapers dailyWallpaper;
+        Wallpapers dailyWallpaper;
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             defferal = taskInstance.GetDeferral();
@@ -52,7 +52,7 @@ namespace BackgroundTask
                 defferal.Complete();
                 return;
             }
-            var localFolder = ApplicationData.Current.LocalFolder.GetFolderAsync("wallpapers");
+            var localFolder = ApplicationData.Current.LocalFolder.GetFolderAsync("Wallpapers");
             var localToggleSettings = ApplicationData.Current.LocalSettings.Containers["settings"].Containers["toggle"];
             var imageFile = await WallpaperProxy.SaveWallPaper(dailyWallpaper.images[0]);
             if ((bool)localToggleSettings.Values["autoSetToWallpaper"])
@@ -103,7 +103,7 @@ namespace BackgroundTask
         {
             bool rt;
             
-            if (File.Exists(string.Format("{0}//wallpapersInfo//{1}.txt", ApplicationData.Current.LocalFolder.Path, dailyWallpaper.images[0].fullstartdate)))
+            if (File.Exists(string.Format("{0}//WallpapersInfo//{1}.txt", ApplicationData.Current.LocalFolder.Path, dailyWallpaper.images[0].fullstartdate)))
             {
                 //存在文件,代表没有新的壁纸
                 BuildTask(120);

@@ -26,6 +26,9 @@
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="VoiceCommandService.BingWallpaperVoiceCommandService">
+          <uap:AppService Name="BingWallpaperVoiceCommandService" />
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

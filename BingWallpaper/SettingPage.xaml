@@ -21,7 +21,7 @@
                 IsOn="{x:Bind settingPageItems[0].settingValue, Mode=TwoWay}"
                 Toggled="DaliyUpdateSwitch_Toggled"/>
             <ToggleSwitch
-                x:Name="UpdateWallpaperSwitch"
+                x:Name="UpdateWallpaperswitch"
                 Header="{x:Bind settingPageItems[1].descrption}"
                 IsOn="{x:Bind settingPageItems[1].settingValue, Mode=TwoWay}"
                 Visibility="{x:Bind DaliyUpdateSwitch.IsOn, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>

@@ -14,14 +14,14 @@ using Windows.Networking.Connectivity;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
+using BingWallpaper.Model;
 
 namespace BingWallpaper
 {
     public class WallpaperProxy
     {
         
-
-        public static async Task<WallPapers> GetWallpaper(int index, int n)
+        public static async Task<Wallpapers> GetWallpaper(int index, int n)
         {
             bool internetConnected = false;
             var internetConnectionProfile = NetworkInformation.GetConnectionProfiles();
@@ -45,9 +45,9 @@ namespace BingWallpaper
             var url = String.Format("http://www.bing.com/HPImageArchive.aspx?format=js&idx={0}&n={1}&mkt=en-US", index, n);
             var response = await http.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
-            var serializer = new DataContractJsonSerializer(typeof(WallPapers));
+            var serializer = new DataContractJsonSerializer(typeof(Wallpapers));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
-            var data = (WallPapers)serializer.ReadObject(ms);
+            var data = (Wallpapers)serializer.ReadObject(ms);
             foreach (var item in data.images)
             {
                 if (!item.url.StartsWith(@"http://s.cn.bing.net"))
@@ -58,12 +58,12 @@ namespace BingWallpaper
             await SaveWallPaper(data.images);
             return data;
         }
-        public static async Task<List<IStorageFile>> SaveWallPaper(List<Wallpaper> wallpapers)
+        public static async Task<List<IStorageFile>> SaveWallPaper(List<Wallpaper> Wallpapers)
         {
             List<IStorageFile> fileList = new List<IStorageFile>();
-            foreach (var item in wallpapers)
+            foreach (var item in Wallpapers)
             {
-                var path = string.Format("{0}\\{1}\\{2}.jpg", ApplicationData.Current.LocalFolder.Path, "wallpapers", item.fullstartdate);
+                var path = string.Format("{0}\\{1}\\{2}.jpg", ApplicationData.Current.LocalFolder.Path, "Wallpapers", item.fullstartdate);
                 if (File.Exists(path))
                 {
                     item.url = path;
@@ -85,43 +85,43 @@ namespace BingWallpaper
                     }
                 }
 
-                IStorageFolder wallpapersFolder;
+                IStorageFolder WallpapersFolder;
                 Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
-                if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "wallpapers")))
+                if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "Wallpapers")))
                 {
-                    wallpapersFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("wallpapers");
+                    WallpapersFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Wallpapers");
                 }
                 else
                 {
-                    wallpapersFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("wallpapers");
+                    WallpapersFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Wallpapers");
                 }
-                IStorageFile saveFile = await wallpapersFolder.CreateFileAsync(item.fullstartdate + ".jpg", CreationCollisionOption.ReplaceExisting);
+                IStorageFile saveFile = await WallpapersFolder.CreateFileAsync(item.fullstartdate + ".jpg", CreationCollisionOption.ReplaceExisting);
                 item.url = saveFile.Path;
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
                 fileList.Add(saveFile);
             }
-            await SaveWallpaperInfo(wallpapers);
+            await SaveWallpaperInfo(Wallpapers);
             return fileList;
         }
-        public static async Task<List<IStorageFile>> SaveWallpaperInfo(List<Wallpaper> wallpapers)
+        public static async Task<List<IStorageFile>> SaveWallpaperInfo(List<Wallpaper> Wallpapers)
         {
             List<IStorageFile> fileList = new List<IStorageFile>();
-            IStorageFolder wallpapersInfoFolder;
-            if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "wallpapersInfo")))
+            IStorageFolder WallpapersInfoFolder;
+            if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "WallpapersInfo")))
             {
-                wallpapersInfoFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("wallpapersInfo");
+                WallpapersInfoFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("WallpapersInfo");
             }
             else
             {
-                wallpapersInfoFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("wallpapersInfo");
+                WallpapersInfoFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("WallpapersInfo");
             }
-            foreach (var item in wallpapers)
+            foreach (var item in Wallpapers)
             {
                 if (File.Exists(item.fullstartdate + ".txt"))
                 {
                     continue;
                 }
-                IStorageFile infoFile = await wallpapersInfoFolder.CreateFileAsync(item.fullstartdate + ".txt", CreationCollisionOption.ReplaceExisting);
+                IStorageFile infoFile = await WallpapersInfoFolder.CreateFileAsync(item.fullstartdate + ".txt", CreationCollisionOption.ReplaceExisting);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Wallpaper));
                 using (Stream file = await infoFile.OpenStreamForWriteAsync())
                 {
@@ -135,13 +135,13 @@ namespace BingWallpaper
         {
             IStorageFolder fileFolder;
             List<Wallpaper> wallpaperList = new List<Wallpaper>();
-            if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "wallpapersInfo")))
+            if (!Directory.Exists(string.Format("{0}\\{1}", ApplicationData.Current.LocalFolder.Path, "WallpapersInfo")))
             {
                 return null;
             }
             else
             {
-                fileFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("wallpapersInfo");
+                fileFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("WallpapersInfo");
             }
             var fileList = await fileFolder.GetFilesAsync();
             var num = fileList.Count;
@@ -156,15 +156,15 @@ namespace BingWallpaper
             return wallpaperList;
         }
 
-        public static async Task<List<StorageFile>> SaveAsWallpaper(List<Wallpaper> wallpapers)
+        public static async Task<List<StorageFile>> SaveAsWallpaper(List<Wallpaper> Wallpapers)
         {
             var rt = new List<StorageFile>();
-            if (wallpapers.Count == 1)
+            if (Wallpapers.Count == 1)
             {
                 var filePicker = new FileSavePicker();
                 filePicker.FileTypeChoices.Add("JPEG image file", new List<string> { ".jpg" });
-                filePicker.SuggestedFileName = wallpapers[0].fullstartdate;
-                StorageFile file1 = await StorageFile.GetFileFromPathAsync(wallpapers[0].url);
+                filePicker.SuggestedFileName = Wallpapers[0].fullstartdate;
+                StorageFile file1 = await StorageFile.GetFileFromPathAsync(Wallpapers[0].url);
                 var file2 = await filePicker.PickSaveFileAsync();
                 if (file2 != null)
                 {
@@ -172,13 +172,13 @@ namespace BingWallpaper
                     rt.Add(file2);
                 }
             }
-            else if (wallpapers.Count > 1)
+            else if (Wallpapers.Count > 1)
             {
                 var folderPicker = new FolderPicker();
                 var destFolder = await folderPicker.PickSingleFolderAsync();
                 if (destFolder != null)
                 {
-                    foreach (var item in wallpapers)
+                    foreach (var item in Wallpapers)
                     {
                         var file1 = await StorageFile.GetFileFromPathAsync(item.url);
                         var file2 = await file1.CopyAsync(destFolder);
@@ -191,65 +191,9 @@ namespace BingWallpaper
 
         public static async Task refreshCurrentWallpaper()
         {
-            WallPapers wallPapers = await GetWallpaper(1, 14);
-            await SaveWallpaperInfo(wallPapers.images);
+            Wallpapers Wallpapers = await GetWallpaper(1, 14);
+            await SaveWallpaperInfo(Wallpapers.images);
         }
 
     }
-
-    [DataContract]
-    public class Wallpaper
-    {
-        [DataMember]
-        public string startdate { get; set; }
-        [DataMember]
-        public string fullstartdate { get; set; }
-        [DataMember]
-        public string enddate { get; set; }
-        [DataMember]
-        public string url { get; set; }
-        [DataMember]
-        public string urlbase { get; set; }
-        [DataMember]
-        public string copyright { get; set; }
-        [DataMember]
-        public string copyrightlink { get; set; }
-        [DataMember]
-        public bool wp { get; set; }
-        [DataMember]
-        public string hsh { get; set; }
-        [DataMember]
-        public int drk { get; set; }
-        [DataMember]
-        public int top { get; set; }
-        [DataMember]
-        public int bot { get; set; }
-        [DataMember]
-        public List<object> hs { get; set; }
-    }
-
-    [DataContract]
-    public class Tooltips
-    {
-        [DataMember]
-        public string loading { get; set; }
-        [DataMember]
-        public string previous { get; set; }
-        [DataMember]
-        public string next { get; set; }
-        [DataMember]
-        public string walle { get; set; }
-        [DataMember]
-        public string walls { get; set; }
-    }
-
-    [DataContract]
-    public class WallPapers
-    {
-        [DataMember]
-        public List<Wallpaper> images { get; set; }
-        [DataMember]
-        public Tooltips tooltips { get; set; }
-    }
-
 }

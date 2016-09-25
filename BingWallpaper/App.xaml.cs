@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -43,7 +44,7 @@ namespace BingWallpaper
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (!System.Diagnostics.Debugger.IsAttached)
@@ -82,14 +83,22 @@ namespace BingWallpaper
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
-                var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-                var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
-                var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
-                ApplicationData.Current.LocalSettings.Values["screenHeight"] = bounds.Height * scaleFactor;
-                ApplicationData.Current.LocalSettings.Values["screenWidth"] = bounds.Width * scaleFactor;
+                //var bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+                //var scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+                //var size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
+                //ApplicationData.Current.LocalSettings.Values["screenHeight"] = bounds.Height * scaleFactor;
+                //ApplicationData.Current.LocalSettings.Values["screenWidth"] = bounds.Width * scaleFactor;
                 Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
-                var profile = NetworkInformation.GetConnectionProfiles();
-                var tem = profile[0];
+                try
+                {
+                    StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync("BingWallpaperVoiceCommandList.xml");
+                    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Installing vcd file failed" + ex.ToString());
+                    throw;
+                }
             }
         }
 

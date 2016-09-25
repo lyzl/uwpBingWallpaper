@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingWallpaper", "BingWallpaper\BingWallpaper.csproj", "{8EA016C3-135F-4241-8B3B-D9BAD55FF81A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTask", "BackgroundTask\BackgroundTask.csproj", "{E9E4E237-E077-4850-AEDF-BAAB3718922B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceCommandService", "VoiceCommandService\VoiceCommandService.csproj", "{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,22 @@ Global
 		{E9E4E237-E077-4850-AEDF-BAAB3718922B}.Release|x64.Build.0 = Release|x64
 		{E9E4E237-E077-4850-AEDF-BAAB3718922B}.Release|x86.ActiveCfg = Release|x86
 		{E9E4E237-E077-4850-AEDF-BAAB3718922B}.Release|x86.Build.0 = Release|x86
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|ARM.Build.0 = Debug|ARM
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|x64.ActiveCfg = Debug|x64
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|x64.Build.0 = Debug|x64
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|x86.ActiveCfg = Debug|x86
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Debug|x86.Build.0 = Debug|x86
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|ARM.ActiveCfg = Release|ARM
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|ARM.Build.0 = Release|ARM
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|x64.ActiveCfg = Release|x64
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|x64.Build.0 = Release|x64
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|x86.ActiveCfg = Release|x86
+		{7C310158-F63E-4AD3-A0D3-144BF4B3DFA7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

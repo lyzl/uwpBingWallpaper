@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using BingWallpaper.Model;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -26,7 +27,7 @@ namespace BingWallpaper
     /// </summary>
     public sealed partial class SinglePictureView : Page
     {
-        public WallPapers wallPaper;
+        public Wallpapers wallPaper;
         public SinglePictureView()
         {
             this.InitializeComponent();

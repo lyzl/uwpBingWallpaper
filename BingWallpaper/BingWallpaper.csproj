@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Model\NavBarMenuItem.cs" />
     <Compile Include="Model\SettingPageItem.cs" />
+    <Compile Include="Model\Wallpaper.cs" />
     <Compile Include="MultiPicturesView.xaml.cs">
       <DependentUpon>MultiPicturesView.xaml</DependentUpon>
     </Compile>
@@ -128,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="BingWallpaperVoiceCommandList.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -175,6 +179,10 @@
     <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
       <Project>{e9e4e237-e077-4850-aedf-baab3718922b}</Project>
       <Name>BackgroundTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VoiceCommandService\VoiceCommandService.csproj">
+      <Project>{7c310158-f63e-4ad3-a0d3-144bf4b3dfa7}</Project>
+      <Name>VoiceCommandService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

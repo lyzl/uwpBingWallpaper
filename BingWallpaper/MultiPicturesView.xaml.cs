@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BingWallpaper.Model;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -24,7 +25,7 @@ namespace BingWallpaper
     /// </summary>
     public sealed partial class MultiPicturesView : Page
     {
-        public ObservableCollection<Wallpaper> wallPapersCollection { get; set; }
+        public ObservableCollection<Wallpaper> WallpapersCollection { get; set; }
         double thumbnailHeight;
         double thumbnailWidth;
         public MultiPicturesView()
@@ -32,7 +33,7 @@ namespace BingWallpaper
             thumbnailHeight = (double)ApplicationData.Current.LocalSettings.Values["screenHeight"] / 6.0;
             thumbnailWidth = (double)ApplicationData.Current.LocalSettings.Values["screenWidth"] / 6.0;
             this.InitializeComponent();
-            wallPapersCollection = new ObservableCollection<Wallpaper>();
+            WallpapersCollection = new ObservableCollection<Wallpaper>();
             getPastPicture();
             VisualStateManager.GoToState(this, "OverviewState", false);
         }
@@ -44,7 +45,7 @@ namespace BingWallpaper
 
             foreach (var item in wallpaperList)
             {
-                wallPapersCollection.Add(item);
+                WallpapersCollection.Add(item);
             }
         }
 

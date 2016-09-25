@@ -9,11 +9,10 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Storage;
 
-namespace BackgroundTask
+namespace VoiceCommandService
 {
     public sealed class WallpaperProxy
     {
@@ -106,7 +105,6 @@ namespace BackgroundTask
         }
 
     }
-
     [DataContract]
     public sealed class Wallpaper
     {

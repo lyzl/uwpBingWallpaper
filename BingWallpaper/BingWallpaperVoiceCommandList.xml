@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="zh-cn" Name="BingWallpaperCommandSet">
+    <AppName>每日壁纸</AppName>
+  <Example>更新每日壁纸</Example>
+  <Command Name="refreshDailyWallpaper">
+    <Example>更新我的壁纸</Example>
+    <ListenFor>更新[我的][桌面]壁纸</ListenFor>
+    <ListenFor>刷新[我的][桌面]壁纸</ListenFor>
+    <ListenFor>查找最新[的]壁纸</ListenFor>
+    <Feedback>正在刷新</Feedback>
+    <VoiceCommandService Target="BingWallpaperVoiceCommandService"/>
+  </Command>
+  </CommandSet>
+</VoiceCommands>
