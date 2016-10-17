@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using BingWallpaper.Model;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -27,7 +28,9 @@ namespace BingWallpaper
     /// </summary>
     public sealed partial class SinglePictureView : Page
     {
-        public Wallpapers wallPaper;
+        public Wallpapers wallpapers;
+        public Wallpaper appBackgroundImage { get; set; }
+
         public SinglePictureView()
         {
             this.InitializeComponent();
@@ -35,18 +38,23 @@ namespace BingWallpaper
         }
         async void getTodayPicture()
         {
-            wallPaper = await WallpaperProxy.GetWallpaper(1, 1);
+            wallpapers = await WallpaperProxy.GetWallpaper(1, 1);
+            appBackgroundImage = wallpapers.images[0];
             Bindings.Update();
+            //await AppBackgroundImage.Scale(1.1f, 1.1f, (float)AppBackgroundImage.ActualHeight / 2.0f, (float)AppBackgroundImage.ActualWidth / 2.0f, 1000, 0).StartAsync();
+            await AppBackgroundImage.Blur(100, 1000, 0).StartAsync();
+            //await AppBackgroundImage.Offset(10, 10, 1000, 0).StartAsync();
+
         }
 
         private async void SaveAsButton_Click(object sender, RoutedEventArgs e)
         {
-            await WallpaperProxy.SaveAsWallpaper(wallPaper.images);
+            await WallpaperProxy.SaveAsWallpaper(wallpapers.images);
         }
 
         private async void SetAsLockscreenButton_Click(object sender, RoutedEventArgs e)
         {
-            await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(await StorageFile.GetFileFromPathAsync(wallPaper.images[0].url));
+            await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(await StorageFile.GetFileFromPathAsync(wallpapers.images[0].url));
         }
 
         private void StarButton_Click(object sender, RoutedEventArgs e)
@@ -56,7 +64,7 @@ namespace BingWallpaper
 
         private async void SetAsDesktopButton_Click(object sender, RoutedEventArgs e)
         {
-            await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(await StorageFile.GetFileFromPathAsync(wallPaper.images[0].url));
+            await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(await StorageFile.GetFileFromPathAsync(wallpapers.images[0].url));
         }
     }
 }

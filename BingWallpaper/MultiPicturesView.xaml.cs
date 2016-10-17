@@ -26,12 +26,12 @@ namespace BingWallpaper
     public sealed partial class MultiPicturesView : Page
     {
         public ObservableCollection<Wallpaper> WallpapersCollection { get; set; }
-        double thumbnailHeight;
-        double thumbnailWidth;
+        //double thumbnailHeight;
+        //double thumbnailWidth;
         public MultiPicturesView()
         {
-            thumbnailHeight = (double)ApplicationData.Current.LocalSettings.Values["screenHeight"] / 6.0;
-            thumbnailWidth = (double)ApplicationData.Current.LocalSettings.Values["screenWidth"] / 6.0;
+            //thumbnailHeight = (double)ApplicationData.Current.LocalSettings.Values["screenHeight"] / 6.0;
+            //thumbnailWidth = (double)ApplicationData.Current.LocalSettings.Values["screenWidth"] / 6.0;
             this.InitializeComponent();
             WallpapersCollection = new ObservableCollection<Wallpaper>();
             getPastPicture();

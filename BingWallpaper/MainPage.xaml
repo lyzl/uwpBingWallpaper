@@ -108,7 +108,7 @@
             <Frame
                 x:Name="PicturesPage"
                 SourcePageType="local:SinglePictureView"
-                Padding="5"/>
+                Padding="0,0,5,0"/>
         </SplitView.Content>
     </SplitView>
 </Page>
