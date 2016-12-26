@@ -42,7 +42,7 @@ namespace BingWallpaper
             appBackgroundImage = wallpapers.images[0];
             Bindings.Update();
             //await AppBackgroundImage.Scale(1.1f, 1.1f, (float)AppBackgroundImage.ActualHeight / 2.0f, (float)AppBackgroundImage.ActualWidth / 2.0f, 1000, 0).StartAsync();
-            await AppBackgroundImage.Blur(100, 1000, 0).StartAsync();
+            //await AppBackgroundImage.Blur(100, 1000, 0).StartAsync();
             //await AppBackgroundImage.Offset(10, 10, 1000, 0).StartAsync();
 
         }

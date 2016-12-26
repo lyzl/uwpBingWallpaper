@@ -14,6 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Image
             x:Name="AppBackgroundImage"
             Source="{x:Bind appBackgroundImage.url}"
@@ -22,18 +23,18 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:Blur
                     x:Name="BlurBehavior"
-                        Value="2"
+                        Value="15"
                         Duration="0"
                         Delay="0"
                         AutomaticallyStart="True"/>
-                <behaviors:Fade x:Name="Fade"
-                    Value="0.9"
-                    Duration="0"
-                    Delay="0"
-                    AutomaticallyStart="True"/>
-
             </interactivity:Interaction.Behaviors>
         </Image>
+        <Rectangle
+            x:Name="shelterRectangle"
+            Fill="White"
+            Opacity="0.4"
+            Grid.RowSpan="2">
+        </Rectangle>
         <CommandBar
             Background="{StaticResource AppBarBackgroundThemeBrush}"
             Opacity="0.8">
